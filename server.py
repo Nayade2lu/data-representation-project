@@ -25,7 +25,7 @@ def get_countries():
     return jsonify( {'countries':countries})
 # curl -i http://localhost:5000/countries
 
-@app.route('/countries/<string:id>', methods =['GET'])
+@app.route('/countries/<int:id>', methods =['GET'])
 def get_country(id):
     foundcountries = list(filter(lambda t : t['id'] == id , countries))
     if len(foundcountries) == 0:
@@ -51,7 +51,7 @@ def create_country():
 # curl -i -H "Content-Type:application/json" -X POST -d '{"id":"12 D 1234","country":"Fiat","continent":"Punto","equality-rate":3000}' http://localhost:5000/countries
 # for windows use this one
 # curl -i -H "Content-Type:application/json" -X POST -d "{\"id\":\"12 D 1234\",\"country\":\"Fiat\",\"continent\":\"Punto\",\"equality-rate\":3000}" http://localhost:5000/countries
-@app.route('/countries/<string:id>', methods =['PUT'])
+@app.route('/countries/<int:id>', methods =['PUT'])
 def update_country(id):
     foundcountries=list(filter(lambda t : t['id'] ==id, countries))
     if len(foundcountries) == 0:
@@ -72,7 +72,7 @@ def update_country(id):
 # for windows use this one
 #curl -i -H "Content-Type:application/json" -X PUT -d "{\"country\":\"Fiesta\"}" http://localhost:5000/countries/181%20G%201234
 
-@app.route('/countries/<string:id>', methods =['DELETE'])
+@app.route('/countries/<int:id>', methods =['DELETE'])
 def delete_country(id):
     foundcountries = list(filter (lambda t : t['id'] == id, countries))
     if len(foundcountries) == 0:
