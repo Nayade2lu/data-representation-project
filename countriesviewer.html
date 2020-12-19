@@ -1,0 +1,183 @@
+<html>
+    <head>
+        <title> view Countries</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <h1>Countries</h1>
+        <div> <button id="showCreateButton" onclick="showCreate()">Create</button></div>
+        <div>
+            <table class="table" id="carTable">
+                <tr>
+                        <th>id</th>
+                        <th>country</th>
+                        <th>continent</th>
+                        <th>equality-rate</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                </tr>
+                <tr id="1">
+                        <td>1</td>
+                        <td>Spain</td>
+                        <td>Europe</td>
+                        <td>2</td>
+                        <td><button onclick="showUpdate(this)">Update</button></td>
+                        <td><button onclick="doDelete(this)">Delete</button></td>
+                            
+                </tr>
+                <tr id="2">
+                    <td>2</td>
+                    <td>India</td>
+                    <td>Asia</td>
+                    <td>2</td>
+                    <td><button onclick="showUpdate(this)">Update</button></td>
+                    <td><button onclick="doDelete(this)">Delete</button></td>
+                    
+                        
+                </tr>
+    
+            </table>
+        </div>
+        <div id='createUpdateForm' style="display: none">
+                <h2><span id="createLabel">Create a</span> <span id="updateLabel">update</span> Car</h2>
+                id <input type="text" name="id"/> <br/>
+                country <select name="country">
+                        <option value="Ford">Ford</option>
+                        <option value="Fiat">Fiat</option>
+                        <option value="Nissan">Nissan</option>
+                </select> <br/>
+                continent <input type="text" name="continent"/> <br/>
+                equality-rate <input type="number" name="equality-rate"/> <br/>
+                <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
+                <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
+        </div>
+    </body>
+    <script>
+    function showCreate(){
+        document.getElementById('showCreateButton').style.display="none"
+        document.getElementById('carTable').style.display="none"
+        document.getElementById('createUpdateForm').style.display="block"
+
+        document.getElementById('createLabel').style.display="inline"
+        document.getElementById('updateLabel').style.display="none"
+
+        document.getElementById('doCreateButton').style.display="block"
+        document.getElementById('doUpdateButton').style.display="none"
+
+    }
+    function showViewAll(){
+        document.getElementById('showCreateButton').style.display="block"
+        document.getElementById('carTable').style.display="block"
+        document.getElementById('createUpdateForm').style.display="none"
+    }
+    function showUpdate(buttonElement){
+        document.getElementById('showCreateButton').style.display="none"
+        document.getElementById('carTable').style.display="none"
+        document.getElementById('createUpdateForm').style.display="block"
+
+        document.getElementById('createLabel').style.display="none"
+        document.getElementById('updateLabel').style.display="inline"
+
+        document.getElementById('doCreateButton').style.display="none"
+        document.getElementById('doUpdateButton').style.display="block"
+
+
+        var rowElement = buttonElement.parentNode.parentNode
+        // these is a way of finding the closest <tr> which would safer, closest()
+        
+        var car = getCarFromRow(rowElement)
+        populateFormWithCar(car)
+    }
+    function doCreate(){
+        var form = document.getElementById('createUpdateForm')
+
+        var car = {}
+        car.id = form.querySelector('input[name="id"]').value
+        car.country = form.querySelector('select[name="country"]').value
+        car.continent = form.querySelector('input[name="continent"]').value
+        car.equality-rate = form.querySelector('input[name="equality-rate"]').value
+        console.log(JSON.stringify(car))
+
+        addCarToTable(car)
+        clearForm()
+        
+        showViewAll()
+    }
+    function doUpdate(){
+        var car = getCarFromForm();
+        var rowElement = document.getElementById(car.id)
+        setCarInRow(rowElement,car)
+       
+        clearForm()
+        showViewAll()
+    }
+    function doDelete(r){
+        var tableElement = document.getElementById('carTable')
+        var index = r.parentNode.parentNode.rowIndex;
+        tableElement.deleteRow(index);
+    }
+    function addCarToTable(car){
+        var tableElement = document.getElementById('carTable')
+        var rowElement = tableElement.insertRow(-1)
+        rowElement.setAttribute('id',car.id)
+        var cell1 = rowElement.insertCell(0);
+        cell1.innerHTML = car.id
+        var cell2 = rowElement.insertCell(1);
+        cell2.innerHTML = car.country
+        var cell3 = rowElement.insertCell(2);
+        cell3.innerHTML = car.continent
+        var cell4 = rowElement.insertCell(3);
+        cell4.innerHTML = car.equality-rate
+        var cell5 = rowElement.insertCell(4);
+        cell5.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+        var cell6 = rowElement.insertCell(5);
+        cell6.innerHTML = '<button onclick=doDelete(this)>delete</button>'
+
+    }
+
+    function clearForm(){
+        var form = document.getElementById('createUpdateForm')
+
+        form.querySelector('input[name="id"]').disabled = false
+        form.querySelector('input[name="id"]').value  =''
+        form.querySelector('select[name="country"]').value=''
+        form.querySelector('input[name="continent"]').value=''
+        form.querySelector('input[name="equality-rate"]').value=''
+    }
+    function getCarFromRow(rowElement){
+        var car ={}
+        car.id  = rowElement.cells[0].firstChild.textContent
+        car.country = rowElement.cells[1].firstChild.textContent
+        car.continent = rowElement.cells[2].firstChild.textContent
+        car.equality-rate = rowElement.cells[3].firstChild.textContent
+        return car
+    }
+    function setCarInRow(rowElement, car){
+        rowElement.cells[0].firstChild.textContent= car.id  
+        rowElement.cells[1].firstChild.textContent= car.country 
+        rowElement.cells[2].firstChild.textContent= car.continent
+        rowElement.cells[3].firstChild.textContent= car.equality-rate
+    }
+    function populateFormWithCar(car){
+        var form = document.getElementById('createUpdateForm')
+        form.querySelector('input[name="id"]').disabled = true
+
+        form.querySelector('input[name="id"]').value  = car.id
+        form.querySelector('select[name="country"]').value= car.country
+        form.querySelector('input[name="continent"]').value= car.continent
+        form.querySelector('input[name="equality-rate"]').value= car.equality-rate
+        return car
+    }
+    function getCarFromForm(){
+        var form = document.getElementById('createUpdateForm')
+        var car = {}
+        car.id = form.querySelector('input[name="id"]').value
+        car.country = form.querySelector('select[name="country"]').value
+        car.continent = form.querySelector('input[name="continent"]').value
+        car.equality-rate = form.querySelector('input[name="equality-rate"]').value
+        console.log(JSON.stringify(car))
+        return car
+    }
+    
+    </script>
+</html>
