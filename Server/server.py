@@ -8,13 +8,13 @@ app = Flask(__name__,
 countries = [
     {
         "id":1,
-        "country":"Spain",
+        "countryname":"Spain",
         "continent":"Europe",
         "equality-rate":2
     },
     {
         "id":2,
-        "country":"India",
+        "countryname":"India",
         "continent":"Asia",
         "equality-rate":2
     }
@@ -41,7 +41,7 @@ def create_country():
         abort(400)
     country={
         "id":  request.json['id'],
-        "country": request.json['country'],
+        "countryname": request.json['countryname'],
         "continent":request.json['continent'],
         "equality-rate":request.json['equality-rate']
     }
