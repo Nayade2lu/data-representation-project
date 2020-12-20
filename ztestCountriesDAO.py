@@ -1,16 +1,31 @@
-from zCountriesDAO import CountriesDAO
-#create
-latestid = CountriesDAO.create(('Norway', 2))
-# find by id
-result = CountriesDAO.findByID(latestid)
-print (result)
-#update
-#CountriesDAO.update (("Finland",2,latestid))
-#result = CountriesDAO.findByID(latestid)
-#print (result)
-# get all
-allStudents = CountriesDAO.getAll()
-for student in allStudents:
-    print(student)
-# delete
-#CountriesDAO.delete(latestid)
+from zCountriesDAO import CountryDao
+
+country1 = {
+    'id': 1234567,
+    'equalityrate': 12,
+    'continent': 'jk',
+    'countryname': 'some fantasy country'
+
+}
+country2 = {
+    'id': 1234567,
+    'equalityrate': 999,
+    'continent': 'mary',
+    'countryname': 'had a little lamb'
+
+}
+
+#returnValue = countryDao.create(country)
+returnValue = CountryDao.getAll()
+print(returnValue)
+returnValue = CountryDao.findById(country2['id'])
+print("find By Id")
+print(returnValue)
+returnValue = CountryDao.update(country2)
+print(returnValue)
+returnValue = CountryDao.findById(country2['id'])
+print(returnValue)
+returnValue = CountryDao.delete(country2['id'])
+print(returnValue)
+returnValue = CountryDao.getAll()
+print(returnValue)

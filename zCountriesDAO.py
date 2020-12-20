@@ -1,42 +1,84 @@
 import mysql.connector
-class CountriesDAO:
- db=""
- def __init__(self):
+from mysql.connector import cursor
+
+class CountryDao:
+    db = ""
+    def __init__(self):
         self.db = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="andorra1",
-        database="datarep2"
+            host = 'localhost',
+            user= 'root',
+            password = 'andorra1',
+            database ='datarep2'
         )
- def create(self, values):
+        #print ("connection made")
+
+    def create(self, country):
         cursor = self.db.cursor()
-        sql="insert into countriestable2 (countryname, equalityrate) values (%s,%s)"
+        sql = "insert into countries (id, countryname, continent, equalityrate) values (%s,%s,%s,%s)"
+        values = [
+            country['id'],
+            country['countryname'],
+            country['continent'],
+            country['equalityrate']
+        ]
         cursor.execute(sql, values)
         self.db.commit()
         return cursor.lastrowid
- def getAll(self):
+
+    def getAll(self):
         cursor = self.db.cursor()
-        sql="select * from countriestable2"
+        sql = 'select * from countriestable2'
         cursor.execute(sql)
-        result = cursor.fetchall()
-        return result
- def findByID(self, id):
+        results = cursor.fetchall()
+        returnArray = []
+        #print(results)
+        for result in results:
+            resultAsDict = self.convertToDict(result)
+            returnArray.append(resultAsDict)
+
+        return returnArray
+
+    def findById(self, id):
         cursor = self.db.cursor()
-        sql="select * from countriestable2 where id = %s"
-        values = (id,)
+        sql = 'select * from countriestable2 where id = %s'
+        values = [ id ]
         cursor.execute(sql, values)
         result = cursor.fetchone()
-        return result
-def update(self, values):
-        cursor = self.db.cursor()
-        sql="update countriestable2 set countryname= %s, equalityrate=%s where id = %s"
-        cursor.execute(sql, values)
-        self.db.commit()
-def delete(self, id):
-        cursor = self.db.cursor()
-        sql="delete from countriestable2 where id = %s"
-        values = (id,)
-        cursor.execute(sql, values)
-        self.db.commit()
-        print("delete done")
-CountriesDAO = CountriesDAO()
+        return self.convertToDict(result)
+        
+
+    def update(self, country):
+       cursor = self.db.cursor()
+       sql = "update countriestable2 set countryname = %s, continent = %s, equalityrate = %s where id = %s"
+       values = [
+           country['countryname'],
+           country['continent'],
+           country['equalityrate'],
+           country['id']
+
+       ]
+       cursor.execute(sql, values)
+       self.db.commit()
+       return country
+
+    def delete(self, id):
+       cursor = self.db.cursor()
+       sql = 'delete from countriestable2 where id = %s'
+       values = [id]
+       cursor.execute(sql, values)
+       
+       return {}
+
+
+
+    def convertToDict(self, result):
+        colnames = ['id','countryname', 'continent', 'equalityrate']
+        country = {}
+
+        if result:
+            for i , colName in enumerate(colnames):
+                value = result[i]
+                country[colName] = value
+        return country
+
+CountryDao = CountryDao()
