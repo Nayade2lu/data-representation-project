@@ -10,13 +10,13 @@ countries = [
         "id":1,
         "countryname":"Spain",
         "continent":"Europe",
-        "equality-rate":2
+        "equalityrate":2
     },
     {
         "id":2,
         "countryname":"India",
         "continent":"Asia",
-        "equality-rate":2
+        "equalityrate":2
     }
 ]
 
@@ -43,14 +43,14 @@ def create_country():
         "id":  request.json['id'],
         "countryname": request.json['countryname'],
         "continent":request.json['continent'],
-        "equality-rate":request.json['equality-rate']
+        "equalityrate":request.json['equalityrate']
     }
     countries.append(country)
     return jsonify( {'country':country }),201
 # sample test
-# curl -i -H "Content-Type:application/json" -X POST -d '{"id":"12 D 1234","country":"Fiat","continent":"Punto","equality-rate":3000}' http://localhost:5000/countries
+# curl -i -H "Content-Type:application/json" -X POST -d '{"id":"12 D 1234","country":"Fiat","continent":"Punto","equalityrate":3000}' http://localhost:5000/countries
 # for windows use this one
-# curl -i -H "Content-Type:application/json" -X POST -d "{\"id\":\"12 D 1234\",\"country\":\"Fiat\",\"continent\":\"Punto\",\"equality-rate\":3000}" http://localhost:5000/countries
+# curl -i -H "Content-Type:application/json" -X POST -d "{\"id\":\"12 D 1234\",\"country\":\"Fiat\",\"continent\":\"Punto\",\"equalityrate\":3000}" http://localhost:5000/countries
 @app.route('/countries/<int:id>', methods =['PUT'])
 def update_country(id):
     foundcountries=list(filter(lambda t : t['id'] ==id, countries))
@@ -62,11 +62,11 @@ def update_country(id):
         abort(400)
     if 'continent' in request.json and type(request.json['continent']) is not str:
         abort(400)
-    if 'equality-rate' in request.json and type(request.json['equality-rate']) is not int:
+    if 'equalityrate' in request.json and type(request.json['equalityrate']) is not int:
         abort(400)
     foundcountries[0]['country']  = request.json.get('country', foundcountries[0]['country'])
     foundcountries[0]['continent'] =request.json.get('continent', foundcountries[0]['continent'])
-    foundcountries[0]['equality-rate'] =request.json.get('equality-rate', foundcountries[0]['equality-rate'])
+    foundcountries[0]['equalityrate'] =request.json.get('equalityrate', foundcountries[0]['equalityrate'])
     return jsonify( {'country':foundcountries[0]})
 #curl -i -H "Content-Type:application/json" -X PUT -d '{"country":"Fiesta"}' http://localhost:5000/countries/181%20G%201234
 # for windows use this one
