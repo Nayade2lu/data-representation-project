@@ -59,7 +59,7 @@ class CountryDao:
        ]
        cursor.execute(sql, values)
        self.db.commit()
-       return country
+       return country   
 
     def delete(self, id):
        cursor = self.db.cursor()
