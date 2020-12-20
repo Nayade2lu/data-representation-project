@@ -11,12 +11,12 @@
     </body>
     <script>
         function updateCountry(){
-            var Country = {"id":"1","country":"Spain","continent":"Europe","equalityrate":"3"}
-            console.log(JSON.stringify(Country));
+            var country = {"id":"1","country":"Spain","continent":"Europe","equalityrate":3}
+            console.log(JSON.stringify(country));
             $.ajax({
-                "url": "http://127.0.0.1:5000/Countries/"+encodeURI(Country.id),
+                "url": "http://127.0.0.1:5000/Countries/"+encodeURI(country.id),
                 "method":"PUT",
-                "data":JSON.stringify(Country),
+                "data":JSON.stringify(country),
                 "dataType": "JSON",
                 contentType: "application/json; charset=utf-8",
                 "success":function(result){

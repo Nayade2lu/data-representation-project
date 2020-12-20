@@ -2,7 +2,7 @@
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <title>
-            test update
+            Delete
         </title>
     </head>
     <body>
@@ -11,10 +11,10 @@
     </body>
     <script>
         function deleteCountry(){
-            var Country = {"reg":"12 D 1234"}
+            var Country = {"id":1}
             console.log(JSON.stringify(Country));
             $.ajax({
-                "url": "http://127.0.0.1:5000/Countrys/"+encodeURI(Country.reg),
+                "url": "http://127.0.0.1:5000/Countries/"+encodeURI(Country.reg),
                 "method":"DELETE",
                 "data":"",
                 "dataType": "JSON",
