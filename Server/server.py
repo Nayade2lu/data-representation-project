@@ -56,24 +56,25 @@ def create_country():
 # curl -i -H "Content-Type:application/json" -X POST -d "{\"id\":\"12 D 1234\",\"country\":\"Fiat\",\"continent\":\"Punto\",\"equalityrate\":3000}" http://localhost:5000/countries
 @app.route('/countries/<string:id>', methods =['PUT'])
 def update_country(id):
-    foundcountries=list(filter(lambda t : t['id'] ==id, countries))
-    if len(foundcountries) == 0:
+    foundCountries=list(filter(lambda t : t['id'] ==id, countries))
+    if len(foundCountries) == 0:
         abort(404)
     if not request.json:
         abort(400)
-    if 'country' in request.json and type(request.json['country']) != str:
+    if 'countryname' in request.json and type(request.json['countriname']) != str:
         abort(400)
-    if 'continent' in request.json and type(request.json['continent']) is not str:
+    if '' in request.json and type(request.json['model']) is not str:
         abort(400)
-    if 'equalityrate' in request.json and type(request.json['equalityrate']) is not int:
+    if 'price' in request.json and type(request.json['price']) is not int:
         abort(400)
-    foundcountries[0]['countryname']  = request.json.get('countryname', foundcountries[0]['countryname'])
-    foundcountries[0]['continent'] =request.json.get('continent', foundcountries[0]['continent'])
-    foundcountries[0]['equalityrate'] =request.json.get('equalityrate', foundcountries[0]['equalityrate'])
-    return jsonify( {'country':foundcountries[0]})
-#curl -i -H "Content-Type:application/json" -X PUT -d '{"country":"Fiesta"}' http://localhost:5000/countries/181%20G%201234
+    foundCars[0]['make']  = request.json.get('make', foundCars[0]['make'])
+    foundCars[0]['model'] =request.json.get('model', foundCars[0]['model'])
+    foundCars[0]['price'] =request.json.get('price', foundCars[0]['price'])
+    return jsonify( {'car':foundCars[0]})
+#curl -i -H "Content-Type:application/json" -X PUT -d '{"make":"Fiesta"}' http://localhost:5000/cars/181%20G%201234
 # for windows use this one
-#curl -i -H "Content-Type:application/json" -X PUT -d "{\"country\":\"Fiesta\"}" http://localhost:5000/countries/181%20G%201234
+#curl -i -H "Content-Type:application/json" -X PUT -d "{\"make\":\"Fiesta\"}" http://localhost:5000/cars/181%20G%201234
+
 
 @app.route('/countries/<string:id>', methods =['DELETE'])
 def delete_country(id):

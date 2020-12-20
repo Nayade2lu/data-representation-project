@@ -11,7 +11,7 @@
     </body>
     <script>
         function deleteCountry(){
-            var Country = {"id":1}
+            var Country = {"id":"2"}
             console.log(JSON.stringify(Country));
             $.ajax({
                 "url": "http://127.0.0.1:5000/Countries/"+encodeURI(Country.reg),
