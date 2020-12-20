@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <title>
+            Update
+        </title>
+    </head>
+    <body>
+        <button onclick="updateCountry()">update</button>
+        <div id="output"></div>
+    </body>
+    <script>
+        function updateCountry(){
+            var Country = {"id":"1","country":"Spain","continent":"Europe","equalityrate":"3"}
+            console.log(JSON.stringify(Country));
+            $.ajax({
+                "url": "http://127.0.0.1:5000/Countries/"+encodeURI(Country.id),
+                "method":"PUT",
+                "data":JSON.stringify(Country),
+                "dataType": "JSON",
+                contentType: "application/json; charset=utf-8",
+                "success":function(result){
+                    console.log(result);
+                    document.getElementById("output").innerText = JSON.stringify(result);    
+                },
+                "error":function(xhr,status,error){
+                    console.log("error: "+status+" msg:"+error);
+                }
+            });
+
+        }
+       
+    </script>
+</html>

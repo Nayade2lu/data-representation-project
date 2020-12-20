@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <title>
+            test update
+        </title>
+    </head>
+    <body>
+        <button onclick="deleteCountry()">delete</button>
+        <div id="output"></div>
+    </body>
+    <script>
+        function deleteCountry(){
+            var Country = {"reg":"12 D 1234"}
+            console.log(JSON.stringify(Country));
+            $.ajax({
+                "url": "http://127.0.0.1:5000/Countrys/"+encodeURI(Country.reg),
+                "method":"DELETE",
+                "data":"",
+                "dataType": "JSON",
+                contentType: "application/json; charset=utf-8",
+                "success":function(result){
+                    console.log(result);
+                    document.getElementById("output").innerText = JSON.stringify(result);    
+                },
+                "error":function(xhr,status,error){
+                    console.log("error: "+status+" msg:"+error);
+                }
+            });
+
+        }
+       
+    </script>
+</html>
