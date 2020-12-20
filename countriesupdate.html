@@ -11,7 +11,7 @@
     </body>
     <script>
         function updateCountry(){
-            var country = {"id":"1","country":"Spain","continent":"Europe","equalityrate":3}
+            var country = {"id":"1","country":"Spain","continent":"Europe","equalityrate":33}
             console.log(JSON.stringify(country));
             $.ajax({
                 "url": "http://127.0.0.1:5000/Countries/"+encodeURI(country.id),

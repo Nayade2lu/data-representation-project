@@ -1,12 +1,13 @@
 #!flask/bin/python
 from flask import Flask, jsonify,  request, abort, make_response
-#from flask_cors import CORS
+from flask_cors import CORS
+
 
 app = Flask(__name__,
             static_url_path='', 
             static_folder='../')
 
-#CORS(app)
+CORS(app)
 
 countries = [
     {
@@ -63,14 +64,14 @@ def update_country(id):
         abort(400)
     if 'countryname' in request.json and type(request.json['countriname']) != str:
         abort(400)
-    if '' in request.json and type(request.json['model']) is not str:
+    if 'continent' in request.json and type(request.json['continent']) is not str:
         abort(400)
-    if 'price' in request.json and type(request.json['price']) is not int:
+    if 'equalityrate' in request.json and type(request.json['equalityrate']) is not int:
         abort(400)
-    foundCars[0]['make']  = request.json.get('make', foundCars[0]['make'])
-    foundCars[0]['model'] =request.json.get('model', foundCars[0]['model'])
-    foundCars[0]['price'] =request.json.get('price', foundCars[0]['price'])
-    return jsonify( {'car':foundCars[0]})
+    foundCountries[0]['countryname']  = request.json.get('countryname', foundCountries[0]['countryname'])
+    foundCountries[0]['continent'] =request.json.get('continent', foundCountries[0]['continent'])
+    foundCountries[0]['equalityrate'] =request.json.get('equalityrate', foundCountries[0]['price'])
+    return jsonify( {'country':foundCountries[0]})
 #curl -i -H "Content-Type:application/json" -X PUT -d '{"make":"Fiesta"}' http://localhost:5000/cars/181%20G%201234
 # for windows use this one
 #curl -i -H "Content-Type:application/json" -X PUT -d "{\"make\":\"Fiesta\"}" http://localhost:5000/cars/181%20G%201234
