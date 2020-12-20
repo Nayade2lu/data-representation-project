@@ -3,12 +3,12 @@ db = mysql.connector.connect(
  host="localhost",
  user="root",
  password="",
+
  database="datarep2"
 )
 cursor = db.cursor()
-sql="select * from countriestable2 where id = %s"
-values = (1,)
+sql="update countriestable2 set countryname= %s, equalityrate=%s where id = %s"
+values = ("NewZeland",33, 1)
 cursor.execute(sql, values)
-result = cursor.fetchall()
-for x in result:
- print(x)
+db.commit()
+print("update done")

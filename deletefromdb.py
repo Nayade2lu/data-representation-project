@@ -6,9 +6,8 @@ db = mysql.connector.connect(
  database="datarep2"
 )
 cursor = db.cursor()
-sql="select * from countriestable2 where id = %s"
+sql="delete from countriestable2 where id = %s"
 values = (1,)
 cursor.execute(sql, values)
-result = cursor.fetchall()
-for x in result:
- print(x)
+db.commit()
+print("delete done")
