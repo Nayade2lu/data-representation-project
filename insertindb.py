@@ -3,11 +3,11 @@ db = mysql.connector.connect(
     host="localhost",
     user="root",
     password="",
-    database="datarep2"
+    database="datarepres2"
 )
 cursor = db.cursor()
-sql="insert into countriestable2 (countryname, equalityrate) values (%s,%s)"
-values = ("Canada2",22)
+sql="insert into countriestable2 (countryname, continent, equalityrate) values (%s,%s,%s )"
+values = ("Monaco", "Europe", 22)
 cursor.execute(sql, values)
 db.commit()
 print("1 record inserted, ID:", cursor.lastrowid)

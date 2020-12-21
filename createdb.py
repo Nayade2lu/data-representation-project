@@ -5,4 +5,4 @@ mydb = mysql.connector.connect(
  password=""
 )
 mycursor = mydb.cursor()
-mycursor.execute("CREATE DATABASE datarep2	")
+mycursor.execute("CREATE DATABASE datarepres2	")

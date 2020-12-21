@@ -4,11 +4,11 @@ db = mysql.connector.connect(
  user="root",
  password="",
 
- database="datarep2"
+ database="datarepres2"
 )
 cursor = db.cursor()
-sql="update countriestable2 set countryname= %s, equalityrate=%s where id = %s"
-values = ("NewZeland",33, 1)
+sql="update countriestable2 set countryname= %s, continent=%s, equalityrate=%s where id = %s"
+values = ("NewZeland", "Australia",33, 1)
 cursor.execute(sql, values)
 db.commit()
 print("update done")
