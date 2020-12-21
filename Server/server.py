@@ -17,13 +17,13 @@ def hello_world():
 
 @app.route('/countries', methods=['GET'])
 def get_countries():
-    results = CountryDao.getAllGroceries()
+    results = CountryDao.getAll()
     return jsonify(results)
 # curl -i http://localhost:5000/countries
 
 @app.route('/countries/<string:id>', methods =['GET'])
 def get_country(id):
-    foundcountries = CountryDao.findcountry(id)
+    foundcountries = CountryDao.findById(id)
     if not foundcountries:
         abort(404)
     return jsonify(foundcountries)
@@ -41,10 +41,10 @@ def create_country():
         "continent":request.json['continent'],
         "equalityrate":request.json['equalityrate']
     }
-    values = (countries['countryname'], ['continent'], ['equalityrate'])
-    newid = CountryDao.createcuntries(values)
+    values = (country['countryname'], ['continent'], ['equalityrate'])
+    newid = CountryDao.create(values)
     country['id'] = newid
-    return jsonify(countries)
+    return jsonify(country)
 # sample test
 # curl -i -H "Content-Type:application/json" -X POST -d '{"id":"12 D 1234","country":"Fiat","continent":"Punto","equalityrate":3000}' http://localhost:5000/countries
 # for windows use this one

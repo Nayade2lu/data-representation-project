@@ -1,20 +1,21 @@
 import mysql.connector
 from mysql.connector import cursor
+import config as cfg
 
 class CountryDao:
     db = ""
     def __init__(self):
         self.db = mysql.connector.connect(
-            host = 'localhost',
-            user= 'root',
-            password = 'andorra1',
-            database ='datarep2'
-        )
+            host=cfg.mysql['host'],
+            user=cfg.mysql['username'],
+            password=cfg.mysql['password'],
+            database=cfg.mysql['database']
+    )
         #print ("connection made")
 
     def create(self, country):
         cursor = self.db.cursor()
-        sql = "insert into countries (id, countryname, continent, equalityrate) values (%s,%s,%s,%s)"
+        sql = "insert into countriestable2 (id, countryname, continent, equalityrate) values (%s,%s,%s,%s)"
         values = [
             country['id'],
             country['countryname'],

@@ -1,6 +1,6 @@
 
 from flask import Flask, url_for, request, redirect, abort, jsonify
-from zCountriesDAO import CountryDAO
+from zCountriesDAO import CountryDao
 
 app = Flask(__name__, static_url_path='', static_folder='staticpages')
 
@@ -39,7 +39,7 @@ def create():
     }
     return jsonify(CountryDAO.create(book))
 
-    return "served by Create "
+    return "served by Create"
 
 #update
 # curl -X PUT -d "{\"countryname\":\"new countryname\", \"equalityrate\":999}" -H "content-type:application/json" http://127.0.0.1:5000/countries/1

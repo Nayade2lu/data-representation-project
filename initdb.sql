@@ -1,8 +1,9 @@
 use datarep2
 
-create table countriestable3 (
-    id int PRIMARY KEY,
+create table countriestable4 (
+    id int NOT NULL AUTO_INCREMENT,
     countryname VARCHAR(255),
     continent VARCHAR (100),
-    equalityrate int
+    equalityrate int,
+    PRIMARY KEY (id)
 );
