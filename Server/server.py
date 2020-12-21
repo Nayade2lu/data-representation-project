@@ -1,23 +1,23 @@
 #!flask/bin/python
 from flask import Flask, jsonify,  request, abort, make_response
-from flask_cors import CORS
+#from flask_cors import CORS
 
 
 app = Flask(__name__,
             static_url_path='', 
             static_folder='../')
 
-CORS(app)
+#SET FLASK_APP=serverCORS(app)
 
 countries = [
     {
-        "id":"1",
+        "id":1,
         "countryname":"Spain",
         "continent":"Europe",
         "equalityrate":3
     },
     {
-        "id":"2",
+        "id":2,
         "countryname":"India",
         "continent":"Asia",
         "equalityrate":2
@@ -29,7 +29,7 @@ def get_countries():
     return jsonify( {'countries':countries})
 # curl -i http://localhost:5000/countries
 
-@app.route('/countries/<string:id>', methods =['GET'])
+@app.route('/countries/<int:id>', methods =['GET'])
 def get_country(id):
     foundcountries = list(filter(lambda t : t['id'] == id , countries))
     if len(foundcountries) == 0:
@@ -55,14 +55,14 @@ def create_country():
 # curl -i -H "Content-Type:application/json" -X POST -d '{"id":"12 D 1234","country":"Fiat","continent":"Punto","equalityrate":3000}' http://localhost:5000/countries
 # for windows use this one
 # curl -i -H "Content-Type:application/json" -X POST -d "{\"id\":\"12 D 1234\",\"country\":\"Fiat\",\"continent\":\"Punto\",\"equalityrate\":3000}" http://localhost:5000/countries
-@app.route('/countries/<string:id>', methods =['PUT'])
+@app.route('/countries/<int:id>', methods =['PUT'])
 def update_country(id):
     foundCountries=list(filter(lambda t : t['id'] ==id, countries))
     if len(foundCountries) == 0:
         abort(404)
     if not request.json:
         abort(400)
-    if 'countryname' in request.json and type(request.json['countriname']) != str:
+    if 'countryname' in request.json and type(request.json['countryname']) != str:
         abort(400)
     if 'continent' in request.json and type(request.json['continent']) is not str:
         abort(400)
@@ -70,14 +70,14 @@ def update_country(id):
         abort(400)
     foundCountries[0]['countryname']  = request.json.get('countryname', foundCountries[0]['countryname'])
     foundCountries[0]['continent'] =request.json.get('continent', foundCountries[0]['continent'])
-    foundCountries[0]['equalityrate'] =request.json.get('equalityrate', foundCountries[0]['price'])
+    foundCountries[0]['equalityrate'] =request.json.get('equalityrate', foundCountries[0]['equalityrate'])
     return jsonify( {'country':foundCountries[0]})
 #curl -i -H "Content-Type:application/json" -X PUT -d '{"make":"Fiesta"}' http://localhost:5000/cars/181%20G%201234
 # for windows use this one
 #curl -i -H "Content-Type:application/json" -X PUT -d "{\"make\":\"Fiesta\"}" http://localhost:5000/cars/181%20G%201234
 
 
-@app.route('/countries/<string:id>', methods =['DELETE'])
+@app.route('/countries/<int:id>', methods =['DELETE'])
 def delete_country(id):
     foundcountries = list(filter (lambda t : t['id'] == id, countries))
     if len(foundcountries) == 0:
