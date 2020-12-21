@@ -1,17 +1,17 @@
 from zCountriesDAO import CountryDao
 
 country1 = {
-    'id': 1234567,
+    'id': 3,
     'equalityrate': 12,
-    'continent': 'jk',
-    'countryname': 'some fantasy country'
+    'continent': 'Eur',
+    'countryname': 'Germany'
 
 }
 country2 = {
-    'id': 1234567,
+    'id': 4,
     'equalityrate': 999,
-    'continent': 'mary',
-    'countryname': 'had a little lamb'
+    'continent': 'Asia',
+    'countryname': 'Thailand'
 
 }
 
