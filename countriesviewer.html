@@ -152,8 +152,8 @@
         form.querySelector('input[name="id"]').disabled = true
 
         form.querySelector('input[name="id"]').value  = country.id
-        form.querySelector('select[name="countryname"]').value= country.countryname
-        form.querySelector('input[name="continent"]').value= country.continent
+        form.querySelector('input[name="countryname"]').value= country.countryname
+        form.querySelector('select[name="continent"]').value= country.continent
         form.querySelector('input[name="equalityrate"]').value= country.equalityrate
         return country
     }
@@ -161,8 +161,8 @@
         var form = document.getElementById('createUpdateForm')
         var country = {}
         country.id = form.querySelector('input[name="id"]').value
-        country.countryname = form.querySelector('select[name="countryname"]').value
-        country.continent = form.querySelector('input[name="continent"]').value
+        country.countryname = form.querySelector('input[name="countryname"]').value
+        country.continent = form.querySelector('select[name="continent"]').value
         country.equalityrate = parseInt(form.querySelector('input[name="equalityrate"]').value,10)
         console.log(JSON.stringify(country))
         return country
@@ -224,7 +224,7 @@
     }
     function deletecountryAjax(id){
         //var country = {"id":"12 D 1234"}
-        console.log(JSON.stringify(country));
+        console.log(JSON.stringify(id));
         $.ajax({
             "url": "http://127.0.0.1:5000/countries/"+encodeURI(id),
             "method":"DELETE",

@@ -1,6 +1,7 @@
 #!flask/bin/python
 from flask import Flask, jsonify,  request, abort, make_response
 #from flask_cors import CORS
+from zCountriesDAO import CountryDao
 
 
 app = Flask(__name__,
@@ -9,32 +10,23 @@ app = Flask(__name__,
 
 #SET FLASK_APP=serverCORS(app)
 
-countries = [
-    {
-        "id":1,
-        "countryname":"Spain",
-        "continent":"Europe",
-        "equalityrate":3
-    },
-    {
-        "id":2,
-        "countryname":"India",
-        "continent":"Asia",
-        "equalityrate":2
-    }
-]
+
+@app.route('/')
+def hello_world():
+    return 'Hello'
 
 @app.route('/countries', methods=['GET'])
 def get_countries():
-    return jsonify( {'countries':countries})
+    results = CountryDao.getAllGroceries()
+    return jsonify(results)
 # curl -i http://localhost:5000/countries
 
-@app.route('/countries/<int:id>', methods =['GET'])
+@app.route('/countries/<string:id>', methods =['GET'])
 def get_country(id):
-    foundcountries = list(filter(lambda t : t['id'] == id , countries))
-    if len(foundcountries) == 0:
-        return jsonify( { 'country' : '' }),204
-    return jsonify( { 'country' : foundcountries[0] })
+    foundcountries = CountryDao.findcountry(id)
+    if not foundcountries:
+        abort(404)
+    return jsonify(foundcountries)
 #curl -i http://localhost:5000/countries/1
 
 @app.route('/countries', methods=['POST'])
@@ -49,13 +41,15 @@ def create_country():
         "continent":request.json['continent'],
         "equalityrate":request.json['equalityrate']
     }
-    countries.append(country)
-    return jsonify( {'country':country }),201
+    values = (countries['countryname'], ['continent'], ['equalityrate'])
+    newid = CountryDao.createcuntries(values)
+    country['id'] = newid
+    return jsonify(countries)
 # sample test
 # curl -i -H "Content-Type:application/json" -X POST -d '{"id":"12 D 1234","country":"Fiat","continent":"Punto","equalityrate":3000}' http://localhost:5000/countries
 # for windows use this one
 # curl -i -H "Content-Type:application/json" -X POST -d "{\"id\":\"12 D 1234\",\"country\":\"Fiat\",\"continent\":\"Punto\",\"equalityrate\":3000}" http://localhost:5000/countries
-@app.route('/countries/<int:id>', methods =['PUT'])
+@app.route('/countries/<string:id>', methods =['PUT'])
 def update_country(id):
     foundCountries=list(filter(lambda t : t['id'] ==id, countries))
     if len(foundCountries) == 0:
@@ -68,30 +62,27 @@ def update_country(id):
         abort(400)
     if 'equalityrate' in request.json and type(request.json['equalityrate']) is not int:
         abort(400)
-    foundCountries[0]['countryname']  = request.json.get('countryname', foundCountries[0]['countryname'])
-    foundCountries[0]['continent'] =request.json.get('continent', foundCountries[0]['continent'])
-    foundCountries[0]['equalityrate'] =request.json.get('equalityrate', foundCountries[0]['equalityrate'])
-    return jsonify( {'country':foundCountries[0]})
+    values = (foundCountries['countryname'], ['continent'], ['equalityrate'])
+    CountryDao.update(values)
+    return jsonify(foundCountries)
 #curl -i -H "Content-Type:application/json" -X PUT -d '{"make":"Fiesta"}' http://localhost:5000/cars/181%20G%201234
 # for windows use this one
 #curl -i -H "Content-Type:application/json" -X PUT -d "{\"make\":\"Fiesta\"}" http://localhost:5000/cars/181%20G%201234
 
 
-@app.route('/countries/<int:id>', methods =['DELETE'])
+@app.route('/countries/<string:id>', methods =['DELETE'])
 def delete_country(id):
-    foundcountries = list(filter (lambda t : t['id'] == id, countries))
-    if len(foundcountries) == 0:
-        abort(404)
-    countries.remove(foundcountries[0])
-    return  jsonify( { 'result':True })
+    deletecountries = CountryDao.delete(id)
+    
+    return  jsonify({'done':True })
 
-#@app.errorhandler(404)
-#def not_found404(error):
-    #return make_response( jsonify( {'error':'Not found' }), 404)
+@app.errorhandler(404)
+def not_found404(error):
+    return make_response( jsonify( {'error':'Not found' }), 404)
 
-#@app.errorhandler(400)
-#def not_found400(error):
-    #return make_response( jsonify( {'error':'Bad Request' }), 400)
+@app.errorhandler(400)
+def not_found400(error):
+    return make_response( jsonify( {'error':'Bad Request' }), 400)
 
 
 if __name__ == '__main__' :

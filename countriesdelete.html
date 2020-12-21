@@ -10,11 +10,10 @@
         <div id="output"></div>
     </body>
     <script>
-        function deleteCountry(){
-            var Country = {"id":"2"}
-            console.log(JSON.stringify(Country));
+        function deleteCountry(id){
+            console.log(JSON.stringify(Countries));
             $.ajax({
-                "url": "http://127.0.0.1:5000/Countries/"+encodeURI(Country.reg),
+                "url": "http://127.0.0.1:5000/Countries/"+encodeURI(id),
                 "method":"DELETE",
                 "data":"",
                 "dataType": "JSON",
