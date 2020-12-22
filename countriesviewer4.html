@@ -6,7 +6,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
-        <div id="create-edit">
+        <div id="create-edit" style="display:none">
+            <h2>Create - edit</h2>
                 <table>
                     <tr>
                         <tr>
@@ -39,11 +40,12 @@
 
         <div id="display">
         
-        <!-- <h2>Countries</h2>
-        <div> <button onclick="showCreate()">Create</button>
+        <h2>Countries</h2>
+        <!-- <div> <button onclick="showCreate()">Create</button> -->
         
             <table id= "countyTable" class="table">
                 <tr>
+                        <th></th>
                         <th>countryname</th>
                         <th>continent</th>
                         <th>equalityrate</th>
@@ -51,30 +53,13 @@
                         <th></th>
                 </tr>
                 
-            </table> -->
+            </table> 
         </div>
         
     </body>
     <script>
-
-    //function showCreate(){
-        //document.getElementById('display').style.display="none"
-        //document.getElementById('create-edit').style.display="block"
-
-    //}
     
-    //function doCreate(){
-        //showDisplay()
-    //}
-
-    //function showDisplay(){
-        //document.getElementById('display').style.display="block"
-        //document.getElementById('create-edit').style.display="none"
-
-    //}
-
-    /*
-    function populatetable(){
+    function populateTable(){
         //ajax getAll countries
         $.ajax({
            url: 'http://127.0.0.1:5000/countries',
@@ -82,17 +67,17 @@
            dataType: 'JSON',
            success:function(results){
                for (country of results){
-                addcountryToTable(country)
+                addCountryToTable(country)
                }
                }, 
                error:function(xhr,status,error){
-                   console.log("error"+error + "code:" + status)
+                   console.log("error"+error + "code:"+status)
                }
         })
         
 
     }
-    function addcountryToTable(country){
+    function addCountryToTable(country){
         //console.log("working")
         tableElem = document.getElementById("countryTable")
         rowElem = tableElem.insertRow(-1)
@@ -111,7 +96,7 @@
         cell6.innerHTML = '<button onclick= "doDelete(this)">Delete</button>'
         
     }
-    populatetable()  */
+    populateTable()  
     
 
     /* function showCreate(){
@@ -159,7 +144,7 @@
         country.equalityrate = form.querySelector('input[name="equalityrate"]').value
         console.log(JSON.stringify(country))
         createcountryAjax(country)
-        addcountryToTable(country)
+        addCountryToTable(country)
         clearForm()
         
         showViewAll()
@@ -180,7 +165,7 @@
         deletecountryAjax(rowElement.getAttribute("id"));
         tableElement.deleteRow(index);
     }
-    function addcountryToTable(country){
+    function addCountryToTable(country){
         var tableElement = document.getElementById('countryTable')
         var rowElement = tableElement.insertRow(-1)
         rowElement.setAttribute('id',country.id)
@@ -251,7 +236,7 @@
             "success":function(result){
                 //console.log(result);
                 for (country of result.countries){
-                    addcountryToTable(country);
+                    addCountryToTable(country);
                 }
                 
             },
@@ -273,7 +258,7 @@
             "success":function(result){
                 //console.log(result);
                 country.id = result.id
-                addcountryToTable(country)
+                addCountryToTable(country)
                 clearForm()
                 showViewAll()
                  
