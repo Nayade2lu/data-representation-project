@@ -17,13 +17,12 @@ app = Flask(__name__,
 
 @app.route('/countries', methods=['GET'])
 def getAll():
-    results = yCountryDAO.getAll()
-    return jsonify(results)
+    return jsonify(yCountryDAO.getAll())
 # curl -i http://localhost:5000/countries
 
 @app.route('/countries/<string:id>', methods =['GET'])
 def findById(id):
-    foundcountry = yCountryDAO.findById(id)
+    foundcountry = yCountryDAO.findByID(id)
     if not foundcountry:
         abort(404)
     return jsonify(foundcountry)
@@ -82,7 +81,7 @@ def update(id):
         foundCountry['continent'] = reqJson['continent']
     if 'equalityrate' in reqJson:
         foundCountry['equalityrate'] = reqJson['equalityrate']
-    values = (foundCountry['countryname'],foundCountry['continent'],foundCountry['equalityrate'],foundBook['id'])
+    values = (foundCountry['countryname'],foundCountry['continent'],foundCountry['equalityrate'],foundCountry['id'])
     yCountryDAO.update(values)
     return jsonify(foundCountry)
 #curl -i -H "Content-Type:application/json" -X PUT -d '{"make":"Fiesta"}' http://localhost:5000/cars/181%20G%201234

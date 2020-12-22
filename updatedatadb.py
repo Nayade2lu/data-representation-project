@@ -8,7 +8,7 @@ db = mysql.connector.connect(
 )
 cursor = db.cursor()
 sql="update countriestable2 set countryname= %s, continent=%s, equalityrate=%s where id = %s"
-values = ("NewZeland", "Australia",33, 1)
+values = ("Iceland", "Europe",555, 3)
 cursor.execute(sql, values)
 db.commit()
 print("update done")

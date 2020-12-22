@@ -34,7 +34,7 @@ class yCountryDAO:
 
     def findByID(self, id):
         cursor = self.db.cursor()
-        sql="select * from book where id = %s"
+        sql="select * from countriestable2 where id = %s"
         values = (id,)
 
         cursor.execute(sql, values)
@@ -43,12 +43,12 @@ class yCountryDAO:
 
     def update(self, values):
         cursor = self.db.cursor()
-        sql="update book set title= %s,author=%s, price=%s  where id = %s"
+        sql="update countriestable2 set title= %s,author=%s, price=%s  where id = %s"
         cursor.execute(sql, values)
         self.db.commit()
     def delete(self, id):
         cursor = self.db.cursor()
-        sql="delete from book where id = %s"
+        sql="delete from countriestable2 where id = %s"
         values = (id,)
 
         cursor.execute(sql, values)

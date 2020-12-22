@@ -3,7 +3,7 @@ db = mysql.connector.connect(
  host="localhost",
  user="root",
  password="",
- database="datarep2"
+ database="datarepres2"
 )
 cursor = db.cursor()
 sql="select * from countriestable2 where id = %s"

@@ -2,5 +2,5 @@ mysql={
     'host':"localhost",
     'username':'root',
     'password':'',
-    'database': 'datarep2'
+    'database': 'datarepres2'
 }
