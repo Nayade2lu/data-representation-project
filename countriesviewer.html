@@ -197,6 +197,10 @@
             contentType: "application/json; charset=utf-8",
             "success":function(result){
                 //console.log(result);
+                country.id = result.id
+                addcountryToTable(country)
+                clearForm()
+                showViewAll()
                  
             },
             "error":function(xhr,status,error){

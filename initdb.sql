@@ -1,4 +1,4 @@
-use datarep2
+use datarepres2
 
 create table countriestable4 (
     id int NOT NULL AUTO_INCREMENT,

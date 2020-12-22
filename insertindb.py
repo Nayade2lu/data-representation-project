@@ -2,12 +2,12 @@ import mysql.connector
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="",
+    password="andorra1",
     database="datarepres2"
 )
 cursor = db.cursor()
 sql="insert into countriestable2 (countryname, continent, equalityrate) values (%s,%s,%s )"
-values = ("Monaco", "Europe", 22)
+values = ("Croatia", "Europe", 25)
 cursor.execute(sql, values)
 db.commit()
 print("1 record inserted, ID:", cursor.lastrowid)

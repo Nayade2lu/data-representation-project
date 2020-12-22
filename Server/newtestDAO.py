@@ -11,13 +11,13 @@ class yCountryDAO:
         )
     
             
-    #def create(self, values):
-        #cursor = self.db.cursor()
-        #sql="insert into countriestable2 (continent,countryname, equalityrate) values (%s,%s,%s)"
-        #cursor.execute(sql, values)
+    def create(self, values):
+        cursor = self.db.cursor()
+        sql="insert into countriestable2 (continent,countryname, equalityrate) values (%s,%s,%s)"
+        cursor.execute(sql, values)
 
-        #self.db.commit()
-        #return cursor.lastrowid
+        self.db.commit()
+        return cursor.lastrowid
 
     def getAll(self):
         cursor = self.db.cursor()
@@ -32,29 +32,29 @@ class yCountryDAO:
 
         return returnArray
 
-    #def findByID(self, id):
-        #cursor = self.db.cursor()
-        #sql="select * from book where id = %s"
-        #values = (id,)
+    def findByID(self, id):
+        cursor = self.db.cursor()
+        sql="select * from book where id = %s"
+        values = (id,)
 
-        #cursor.execute(sql, values)
-        #result = cursor.fetchone()
-        #return self.convertToDictionary(result)
+        cursor.execute(sql, values)
+        result = cursor.fetchone()
+        return self.convertToDictionary(result)
 
-    #def update(self, values):
-        #cursor = self.db.cursor()
-        #sql="update book set title= %s,author=%s, price=%s  where id = %s"
-        #cursor.execute(sql, values)
-        #self.db.commit()
-    #def delete(self, id):
-        #cursor = self.db.cursor()
-        #sql="delete from book where id = %s"
-        #values = (id,)
+    def update(self, values):
+        cursor = self.db.cursor()
+        sql="update book set title= %s,author=%s, price=%s  where id = %s"
+        cursor.execute(sql, values)
+        self.db.commit()
+    def delete(self, id):
+        cursor = self.db.cursor()
+        sql="delete from book where id = %s"
+        values = (id,)
 
-        #cursor.execute(sql, values)
+        cursor.execute(sql, values)
 
-        #self.db.commit()
-        #print("delete done")
+        self.db.commit()
+        print("delete done")
 
     def convertToDictionary(self, result):
         colnames=['id','continent','countryname', "equalityrate"]
