@@ -6,30 +6,40 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
-        <div id="create-edit" style="display: none">
+        <div id="create-edit">
                 <table>
                     <tr>
+                        <tr>
+                            <td>id</td>
+                            <td><input type= "number" name= "id">
+                        </tr>
+
+                        <tr>
                         <td>continent</td>
-                        <td><select name="continent">
-                            <option value="Europe">Europe</option>
-                            <option value="Asia">Asia</option>
-                            <option value="Africa">Africa</option>
-                            <option value="NorthAmerica">NorthAmerica</option>
-                            <option value="SouthAmerica">SouthAmerica</option>
-                            <option value="SouthAmerica">Australia</option>
-                        </select></td>
+                        <td><input type= "text" name="continent"></td>
+                        </tr>
+
+                        <tr>
                         <td>countryname</td> 
                         <td><input type="text" name="countryname"/></td>
+                        </tr>
+
+                        <tr>
                         <td>equalityrate</td> 
                         <td><input type="number" name="equalityrate"/></td>
-                    <td><span><button id="doCreateButton" onclick="doCreate()">Create</button></span></td>
-                    <td><span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span></td>
-                </tr>
+                        </tr>
+
+                        <tr>
+                        <td></td>
+                        <td><button id = "create-edit-button">go</button></td>
+                        </tr>
+                    </tr>
                 </table>
         </div>
 
-        <div id="display"></div>
-        <h2>Countries</h2>
+        <div id="display">
+        
+        <!-- <h2>Countries</h2>
         <div> <button onclick="showCreate()">Create</button>
         
             <table id= "countyTable" class="table">
@@ -41,7 +51,7 @@
                         <th></th>
                 </tr>
                 
-            </table>
+            </table> -->
         </div>
         
     </body>
@@ -62,6 +72,8 @@
         //document.getElementById('create-edit').style.display="none"
 
     //}
+
+    /*
     function populatetable(){
         //ajax getAll countries
         $.ajax({
@@ -99,7 +111,7 @@
         cell6.innerHTML = '<button onclick= "doDelete(this)">Delete</button>'
         
     }
-    populatetable()  
+    populatetable()  */
     
 
     /* function showCreate(){
