@@ -13,7 +13,7 @@ class yCountryDAO:
             
     def create(self, values):
         cursor = self.db.cursor()
-        sql="insert into countriestable2 (id, continent,countryname, equalityrate) values (%s,%s,%s,%s)"
+        sql="insert into countriestable2 (continent,countryname, equalityrate) values (%s,%s,%s)"
         cursor.execute(sql, values)
         self.db.commit()
         return cursor.lastrowid
