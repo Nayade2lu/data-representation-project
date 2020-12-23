@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
-        <div id="display"></div>
+        <div id="display">
         <h2>Countries</h2>
         <div> <button onclick="showCreate()">Create</button></div>
             <table class="table" id="countryTable">
@@ -24,15 +24,8 @@
         <div id='createUpdateForm' style="display: none">
                 <h2><span id="createLabel">Create a</span> <span id="updateLabel">update</span> country</h2>
                 id <input type="number" name="id"/> <br/>
-                continent <select name="continent">
-                        <option value="Europe">Europe</option>
-                        <option value="Asia">Asia</option>
-                        <option value="Africa">Africa</option>
-                        <option value="NorthAmerica">NorthAmerica</option>
-                        <option value="SouthAmerica">SouthAmerica</option>
-                        <option value="SouthAmerica">Australia</option>
-                </select> <br/>
                 countryname <input type="text" name="countryname"/> <br/>
+                continent<input type="text" name="continent"/> <br/>
                 equalityrate <input type="number" name="equalityrate"/> <br/>
                 <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
                 <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
@@ -42,15 +35,31 @@
 
     function showCreate(){
         document.getElementById('display').style.display="none"
-        document.getElementById('countryTable').style.display="none"
         document.getElementById('createUpdateForm').style.display="block"
 
     }
 
-     function show(){
-        document.getElementById('showCreateButton').style.display="none"
-        document.getElementById('countryTable').style.display="none"
-        document.getElementById('createUpdateForm').style.display="block"
+    function doCreate(){
+        country = getCountryFromForm()
+        console.log("doCreate")
+        //showdisplay()
+    }
+
+    function getCountryFromForm(){
+        var form = document.getElementById('createUpdateForm')
+        
+        var country = {}
+        country.id= form.querySelector('input[name="id"]').value
+        country.countryname= form.querySelector('input[name="countryname"]').value
+        country.continent= form.querySelector('input[name="continent"]').value
+        country.equalityrate= form.querySelector('input[name="equalityrate"]').value
+        console.log(country)
+        return country
+    }
+
+     function showdisplay(){
+        document.getElementById('display').style.display="block"
+        document.getElementById('createUpdateForm').style.display="none"
 
     }
     function populatetable(){
