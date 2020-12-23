@@ -40,10 +40,29 @@
     }
 
     function doCreate(){
-        country = getCountryFromForm()
         console.log("doCreate")
-        //showdisplay()
+        country = getCountryFromForm()
+        $.ajax({
+            url:"/countries",
+            data:JSON.stringify(country),
+            mehtod:"POST",
+            dataType:"JSON",
+            contentType: "application/json; charset=utf-8",
+            success:function(result){
+                //console.log(result);
+                addcountryToTable(country)
+                showdisplay()
+            },
+            error:function(xhr,status,error){
+            console.log("error"+error)
+        }
+        
+    })
+    
     }
+
+        //showdisplay()
+    
 
     function getCountryFromForm(){
         var form = document.getElementById('createUpdateForm')
@@ -99,7 +118,10 @@
         cell6.innerHTML = '<button onclick= "doDelete(this)">Delete</button>'
         
     }
-    populatetable()  
+    populatetable() 
+
+
+
     
 
     /* function showCreate(){
@@ -308,7 +330,6 @@
         });
     }
     getAllAjax(); */
-
-    
     </script>
+
 </html>
