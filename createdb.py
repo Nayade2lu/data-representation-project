@@ -1,8 +1,8 @@
-import mysql.connector
+from mysql import mysql.connector
 mydb = mysql.connector.connect(
  host="localhost",
  user="root",
- password=""
+ password="andorra1"
 )
 mycursor = mydb.cursor()
-mycursor.execute("CREATE DATABASE datarepres2	")
+mycursor.execute("CREATE DATABASE datarepres3	")
