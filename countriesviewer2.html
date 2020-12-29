@@ -72,8 +72,20 @@
         form.querySelector('input[name="id"]').disabled=true
 
         form.querySelector('input[name="countryname"]').value= country.countryname
-        form.querySelector('input[name="continent"]').value= country.countinent
+        form.querySelector('input[name="continent"]').value= country.continent
         form.querySelector('input[name="equalityrate"]').value= country.equalityrate
+  
+    }
+
+    function clearForm(){
+        var form = document.getElementById('createUpdateForm')
+        
+        form.querySelector('input[name="id"]').value= ''
+        form.querySelector('input[name="id"]').disabled= false
+
+        form.querySelector('input[name="countryname"]').value= ''
+        form.querySelector('input[name="continent"]').value= ''
+        form.querySelector('input[name="equalityrate"]').value= ''
   
     }
 
@@ -87,9 +99,10 @@
             dataType:"JSON",
             contentType: "application/json; charset=utf-8",
             success:function(result){
-                //console.log(result);
+                console.log(result);
                 addcountryToTable(country)
                 showdisplay()
+                clearForm()
             },
             error:function(xhr,status,error){
             console.log("error"+error)
@@ -106,9 +119,9 @@
         updateServer(country)
         
     }
-    function UpdateServer(country)
-    $.ajax({
-        url:"/countries/"+book.id,
+    function updateServer(country){
+        $.ajax({
+        url:"/countries/"+country.id,
         data:JSON.stringify(country),
         mehtod:"PUT",
         dataType:"JSON",
@@ -117,10 +130,12 @@
             console.log(result);
             updateTableRow(country)
             showdisplay()
+            clearForm()
         },
         error:function(xhr,status,error){
         console.log("error"+error)}
     })
+    }
 
 
     function doDelete(thisElem){
@@ -130,7 +145,7 @@
         id= rowElement.getAttribute("id");
        
         $.ajax({
-            "url": "/countries/"+id,
+            "url": "/countries/"+country.id,
             "method":"DELETE",
             "dataType": "JSON",
             "success":function(result){
