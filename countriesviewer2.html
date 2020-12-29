@@ -23,7 +23,7 @@
         </div>
         <div id='createUpdateForm' style="display: none">
                 <h2><span id="createLabel">Create a</span> <span id="updateLabel">update</span> country</h2>
-                id <input type="number" name="id"/> <br/>
+                id <input type="number" name="id" id="idInput"/> <br/>
                 countryname <input type="text" name="countryname"/> <br/>
                 continent<input type="text" name="continent"/> <br/>
                 equalityrate <input type="number" name="equalityrate"/> <br/>
@@ -35,8 +35,46 @@
 
     function showCreate(){
         document.getElementById('display').style.display="none"
+        document.getElementById('doUpdateButton').style.display="none"
+        document.getElementById('doCreateButton').style.display="block"
         document.getElementById('createUpdateForm').style.display="block"
 
+    }
+
+
+    function showUpdate(thisElem){
+        var rowElement = thisElem.parentNode.parentNode;
+        country = readCountryFromRow(rowElement)
+        populateForm(country)
+
+        document.getElementById('display').style.display="none"
+        document.getElementById('doUpdateButton').style.display="block"
+        document.getElementById('doCreateButton').style.display="none"
+        document.getElementById('createUpdateForm').style.display="block"
+       
+
+    }
+
+    function readCountryFromRow(rowElement){
+        county={}
+        county.id= rowElement.getAttribute("id");
+        county.countryname = rowElement.cells[1].firstChild.textContent
+        county.continent = rowElement.cells[2].firstChild.textContent
+        county.equalityrate = rowElement.cells[3].firstChild.textContent
+
+        return country
+    }
+
+    function populateForm(country){
+        var form = document.getElementById('createUpdateForm')
+        
+        form.querySelector('input[name="id"]').value= country.id
+        form.querySelector('input[name="id"]').disabled=true
+
+        form.querySelector('input[name="countryname"]').value= country.countryname
+        form.querySelector('input[name="continent"]').value= country.countinent
+        form.querySelector('input[name="equalityrate"]').value= country.equalityrate
+  
     }
 
     function doCreate(){
@@ -62,7 +100,58 @@
     }
 
         //showdisplay()
-    
+
+    function doUpdate(){
+        country = getCountryFromForm()
+        updateServer(country)
+        
+    }
+    function UpdateServer(country)
+    $.ajax({
+        url:"/countries/"+book.id,
+        data:JSON.stringify(country),
+        mehtod:"PUT",
+        dataType:"JSON",
+        contentType: "application/json; charset=utf-8",
+        success:function(result){
+            console.log(result);
+            updateTableRow(country)
+            showdisplay()
+        },
+        error:function(xhr,status,error){
+        console.log("error"+error)}
+    })
+
+
+    function doDelete(thisElem){
+        var tableElement = document.getElementById('CountryTable');
+        var rowElement = thisElem.parentNode.parentNode;
+        var index = rowElement.rowIndex;
+        id= rowElement.getAttribute("id");
+       
+        $.ajax({
+            "url": "/countries/"+id,
+            "method":"DELETE",
+            "dataType": "JSON",
+            "success":function(result){
+                tableElement.deleteRow(index);
+                  
+            },
+            "error":function(xhr,status,error){
+                console.log(error)
+            }
+        })
+
+    }
+
+    function updateTableRow(country){
+        rowElement = document.getElementById(country.id)
+        rowElement.cells[1].firstChild.textContent = country.countryname
+        rowElement.cells[2].firstChild.textContent = country.continent
+        rowElement.cells[3].firstChild.textContent = country.equalityrate
+        //console.log("updating table")
+
+    }   
 
     function getCountryFromForm(){
         var form = document.getElementById('createUpdateForm')
