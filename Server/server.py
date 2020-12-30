@@ -48,22 +48,6 @@ def create():
 # for windows use this one
 # curl -i -H "Content-Type:application/json" -X POST -d "{\"id\":\"12 D 1234\",\"country\":\"Fiat\",\"continent\":\"Punto\",\"equalityrate\":3000}" http://localhost:5000/countries
 @app.route('/countries/<string:id>', methods =['PUT'])
-#def update_country(id):
-    #foundCountries=list(filter(lambda t : t['id'] ==id, countries))
-    #if len(foundCountries) == 0:
-        #abort(404)
-    #if not request.json:
-        #abort(400)
-    #if 'countryname' in request.json and type(request.json['countryname']) != str:
-        #abort(400)
-    #if 'continent' in request.json and type(request.json['continent']) is not str:
-        #abort(400)
-    #if 'equalityrate' in request.json and type(request.json['equalityrate']) is not int:
-        #abort(400)
-    #values = (foundCountries['countryname'], ['continent'], ['equalityrate'])
-    #yCountryDAO.update(values)
-    #return jsonify(foundCountries)
-
 def update(id):
     foundCountry = yCountryDAO.findByID(id)
     if not foundCountry:

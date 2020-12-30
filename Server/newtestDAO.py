@@ -42,7 +42,7 @@ class yCountryDAO:
 
     def update(self, values):
         cursor = self.db.cursor()
-        sql="update countriestable2 set title= %s,author=%s, price=%s  where id = %s"
+        sql="update countriestable2 set countryname= %s,continent=%s, equalityrate=%s  where id = %s"
         cursor.execute(sql, values)
         self.db.commit()
     def delete(self, id):
