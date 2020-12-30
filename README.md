@@ -64,3 +64,5 @@ How to run the project.
 - Please find the web interface in countriesviewer2.hmtl
 - Please open the countriesviewer2 page from the localhost url
 - Please perform the create, getall, get by id, updte and delete operations 
+
+The folders xDB actions and xCRUD HTMLs are extra files on work done on updating the db and on working on CRUD operations on html independently
